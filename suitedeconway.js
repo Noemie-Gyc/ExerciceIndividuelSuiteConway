@@ -15,52 +15,57 @@ console.log(decoupeChaine("ab"));
 
 //ETAPE 2
 
-function decritchaine(chaine) {
-    let result = [];//On stockera le résultat attendu dans un tableau 
-    let occurrence = 1;// comptera le nombre d'occurence pour une lettre donnée à suivre. 
-    for (i = 0; i < chaine.length; i++) {//on parcourt le tableau chaine en partant de l'indice 0, tant qu'on n'a pas parcouru chaque lettre la boucle continue
-        // occurrence++;
+function decritChaine(chaine) {
+    let result = [];
+    let occurrence = 1;
+    for (i = 0; i < chaine.length; i++) {
+    
         if (chaine[i] !== chaine[i + 1]) {
-            result += occurrence + chaine[i];
-            occurrence = 1;
+            result += occurrence + chaine[i];//we add the chain in the array only if the next letter is different, to avoid repeating letters
+            occurrence = 1; // number of occurrences is updated to 1 only when the next letter in the word in different
         } else if (chaine[i] == chaine[i + 1]) {
             occurrence++;
-            // result += occurrence + chaine[i];
         }
     }
     return result;
 }
-console.log(decritchaine("aabccca"));
+console.log(decritChaine("1a"));
 
 //Etape 3 : 
 
-// function suiteConway(carac, n) {
-//     let result = [];
-//     let i = 1;
-//     console.log("1", result);
-//     for (i = 1; i < (n-1); i++) {
-//         result += carac +' '+  decritchaine(result);
-//         result+= decritchaine(result)
-//         result = result + ' '+ decritchaine(result);
-//         // result = decoupeChaine(result)
-//         console.log("2", result)
-//     }
-//     return result
-// }
-// console.log(suiteConway("b", 3));
-
 function suiteConway(carac,n){
-    let suite=[carac];
-    let last = suite[suite.length-1];
-    while(suite.length<(n-1)){
-        suite+=' '+ decritchaine(suite)+' ';
-        console.log("2",suite)
-        suite+=decritchaine(decritchaine(last))+ ' ';
+    let result=[carac];
+    let chaine = carac;
+    let uniqueResult = "";
+
+    while (result.length < n) {
+        uniqueResult = decritChaine(chaine);
+        result.push(uniqueResult);
+        chaine = uniqueResult;
     }
-    console.log('3',suite)
-    return suite;
+    return result;
+   
 }
-console.log(suiteConway("a",4));
+
+console.log(suiteConway('a',3))
+console.log(suiteConway('1',10))
+
+let suiteConwayChain = suiteConway('1',30);
+
+console.log(suiteConwayChain[9])
+
+//Etape 4: 
+
+    for (let i=0; i<suiteConwayChain.length; i++){
+
+        document.getElementById('suite de Conway').innerHTML += suiteConwayChain[i] + "<br>";
+
+    }
+
+
+
+
+
 
 
 
